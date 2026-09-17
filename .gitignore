@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# large data — see README for download/build commands
+data/*.pbf
+data/*.npz
+data/*.zip
+!data/.gitkeep

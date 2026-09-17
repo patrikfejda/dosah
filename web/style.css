@@ -1,0 +1,304 @@
+/* ---------- Base ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  color: #1f2933;
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Floating panel ---------- */
+
+.panel {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1000;
+  width: min(320px, calc(100vw - 32px));
+  padding: 16px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.panel-title {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.field {
+  margin-top: 12px;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #3e4c59;
+}
+
+/* ---------- Segmented mode control ---------- */
+
+.segmented {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: #eef1f4;
+  border-radius: 10px;
+}
+
+.seg-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 2px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  font: inherit;
+  font-size: 12.5px;
+  color: #3e4c59;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.seg-btn:hover {
+  color: #1f2933;
+}
+
+.seg-btn.active {
+  background: #fff;
+  color: #1f2933;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.seg-btn[data-mode="walk"] .dot {
+  background: #2e7d32;
+}
+
+.seg-btn[data-mode="bike"] .dot {
+  background: #ef6c00;
+}
+
+.seg-btn[data-mode="transit"] .dot {
+  background: #1565c0;
+}
+
+.seg-btn[data-mode="car"] .dot {
+  background: #c62828;
+}
+
+/* ---------- Time slider ---------- */
+
+#minutes-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  margin: 8px 0;
+  border-radius: 2px;
+  background: #d5dce3;
+  outline-offset: 4px;
+  cursor: pointer;
+}
+
+#minutes-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: #1f2933;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+#minutes-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: #1f2933;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Start row ---------- */
+
+.start-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.start-row .field-label {
+  margin-bottom: 0;
+}
+
+.locate-btn {
+  padding: 6px 10px;
+  border: 1px solid #d5dce3;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.locate-btn:hover {
+  background: #f5f7fa;
+}
+
+/* ---------- Depart row (transit only) ---------- */
+
+.depart-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.depart-row .field-label {
+  margin-bottom: 0;
+}
+
+#depart-time {
+  padding: 4px 6px;
+  border: 1px solid #d5dce3;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+}
+
+#depart-time:disabled {
+  color: #9aa5b1;
+  background: #f5f7fa;
+}
+
+.now-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* ---------- Status: loading / info / error ---------- */
+
+.status {
+  margin-top: 12px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #3e4c59;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border: 2px solid #d5dce3;
+  border-top-color: #1f2933;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.info {
+  font-size: 13px;
+  color: #3e4c59;
+}
+
+.error {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fdecea;
+  border: 1px solid #f5c6c2;
+}
+
+.error-text {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #b71c1c;
+}
+
+.retry-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #c62828;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.retry-btn:hover {
+  background: #b71c1c;
+}
+
+/* ---------- Toast ---------- */
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  max-width: calc(100vw - 32px);
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #1f2933;
+  color: #fff;
+  font-size: 13px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Narrow screens: panel spans the top ---------- */
+
+@media (max-width: 480px) {
+  .panel {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    width: auto;
+  }
+}

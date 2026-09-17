@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dosah — Kam sa dostanem?</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="map"></div>
+
+  <section class="panel" aria-label="Ovládanie">
+    <h1 class="panel-title">Kam sa dostanem?</h1>
+
+    <div class="segmented" id="mode-switch" role="group" aria-label="Režim dopravy">
+      <button type="button" class="seg-btn active" data-mode="walk">
+        <span class="dot"></span>Pešo
+      </button>
+      <button type="button" class="seg-btn" data-mode="bike">
+        <span class="dot"></span>Bicykel
+      </button>
+      <button type="button" class="seg-btn" data-mode="transit">
+        <span class="dot"></span>MHD
+      </button>
+      <button type="button" class="seg-btn" data-mode="car">
+        <span class="dot"></span>Auto
+      </button>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="minutes-slider" id="minutes-label">Čas: 15 min</label>
+      <!-- logarithmic position 0..100, mapped to 5..600 minutes in app.js -->
+      <input type="range" id="minutes-slider" min="0" max="100" step="1" value="23">
+    </div>
+
+    <div class="field start-row">
+      <span class="field-label">Štart: klikni na mapu</span>
+      <button type="button" id="locate-btn" class="locate-btn">📍 Moja poloha</button>
+    </div>
+
+    <div class="field depart-row hidden" id="depart-row">
+      <label class="field-label" for="depart-time">Odchod:</label>
+      <input type="time" id="depart-time" disabled>
+      <label class="now-label">
+        <input type="checkbox" id="depart-now" checked> Teraz
+      </label>
+    </div>
+
+    <div class="status">
+      <div class="loading hidden" id="loading">
+        <span class="spinner" aria-hidden="true"></span> Počítam…
+      </div>
+      <div class="info hidden" id="info"></div>
+      <div class="error hidden" id="error" role="alert">
+        <p class="error-text">Nepodarilo sa vypočítať dosah. Skús znova.</p>
+        <button type="button" id="retry-btn" class="retry-btn">Skúsiť znova</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast hidden" id="toast" role="status"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
